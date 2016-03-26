@@ -35,25 +35,14 @@ describe('API', function () {
     });
   });
 
-  it('should return an error when no translation is available', () => {
-    return chai.request(server)
-    .get('/fr/es/Pression électrostatique')
-    .then(() => {
-      throw new Error('Did not return an error :(');
-    }, (err) => {
-      expect(err).to.have.status(404);
-      expect(err.response.text).to.contain('No translation available');
-    });
-  });
-
   it('should return an error when the destination language does not exist', () => {
     return chai.request(server)
     .get('/fr/jp/Ferromagnétisme')
     .then(() => {
       throw new Error('Did not return an error :(');
     }, (err) => {
-      expect(err).to.have.status(404);
-      expect(err.response.text).to.contain('No translation available');
+      expect(err).to.have.status(400);
+      expect(err.response.text).to.equal('"jp" is not a valid language.');
     });
   });
 
@@ -63,8 +52,8 @@ describe('API', function () {
     .then(() => {
       throw new Error('Did not return an error :(');
     }, (err) => {
-      expect(err).to.have.status(404);
-      expect(err.response.text).to.equal('Language "po" does not exist. :-(');
+      expect(err).to.have.status(400);
+      expect(err.response.text).to.equal('"po" is not a valid language.');
     });
   });
 });

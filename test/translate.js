@@ -14,21 +14,12 @@ describe('Translation', () => {
     });
   });
 
-  it('should return an error when no translation is available', () => {
-    return translate('Pression électrostatique', 'fr', 'es')
-    .then(() => {
-      throw new Error('Did not return an error :(');
-    }, (err) => {
-      expect(err).to.contain('No translation available');
-    });
-  });
-
   it('should return an error when the destination language does not exist', () => {
     return translate('Ferromagnétisme', 'fr', 'jp')
     .then(() => {
       throw new Error('Did not return an error :(');
     }, (err) => {
-      expect(err).to.contain('No translation available');
+      expect(err).to.contain('"jp" is not a valid language.');
     });
   });
 
@@ -37,7 +28,7 @@ describe('Translation', () => {
     .then(() => {
       throw new Error('Did not return an error :(');
     }, (err) => {
-      expect(err).to.equal('Language "po" does not exist. :-(');
+      expect(err).to.equal('"po" is not a valid language.');
     });
   });
 });

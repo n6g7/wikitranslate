@@ -35,7 +35,7 @@ app.use(function* translate() {
     this.body = yield translator(this.state.search, this.state.fromLang, this.state.toLang);
   }
   catch (err) {
-    this.throw(404, err);
+    this.throw(400, err);
   }
 });
 
