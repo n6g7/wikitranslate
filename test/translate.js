@@ -7,7 +7,10 @@ describe('Translation', () => {
   it('should translate words', () => {
     return translate('Potentiel électrique', 'fr', 'en')
     .then((res) => {
-      expect(res).to.equal('Electric potential');
+      expect(res).to.be.an('object');
+      expect(res).to.contain.keys('wikipedia');
+      expect(res.wikipedia).to.be.an('array');
+      expect(res.wikipedia[0]).to.equal('Electric potential');
     });
   });
 

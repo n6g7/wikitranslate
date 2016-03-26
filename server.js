@@ -1,5 +1,6 @@
 'use strict';
 
+let _ = require('lodash');
 let koa = require('koa');
 let qs = require('querystring');
 let translator = require('./lib/translate');
@@ -24,7 +25,9 @@ app.use(function* parseUrl(next) {
 app.use(function* log(next) {
   yield next;
 
-  console.log(`Translated "${this.state.search}" (${this.state.fromLang}) to "${this.body}" (${this.state.toLang}).`);
+  let count = _(this.body).values().flatten().size();
+
+  console.log(`Found ${count} translations for "${this.state.search}" (${this.state.fromLang} -> ${this.state.toLang}).`);
 });
 
 app.use(function* translate() {

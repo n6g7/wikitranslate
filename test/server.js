@@ -16,7 +16,11 @@ describe('API', function () {
     .get('/fr/en/Potentiel électrique')
     .then((res) => {
       expect(res).to.have.status(200);
-      expect(res.text).to.equal('Electric potential');
+
+      expect(res.body).to.be.an('object');
+      expect(res.body).to.contain.keys('wikipedia');
+      expect(res.body.wikipedia).to.be.an('array');
+      expect(res.body.wikipedia[0]).to.equal('Electric potential');
     });
   });
 
