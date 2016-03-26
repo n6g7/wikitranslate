@@ -1,11 +1,12 @@
 {
   "name": "wikitranslate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Wikipedia translation as a service",
   "author": "n6g7 <n6g7@gnab.fr>",
   "main": "lib/translate.js",
   "scripts": {
     "pretest": "eslint ./",
+    "start": "node server.js",
     "test": "mocha"
   },
   "keywords": [

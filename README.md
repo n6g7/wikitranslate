@@ -33,7 +33,14 @@ returns the associated translation.
 > HTTP/1.1 200 OK
 > [...]
 >
-> Permittivity
+> {
+>     "wikipedia": [
+>         "Permittivity"
+>     ],
+>     "wiktionary": [
+>         "permittivity"
+>     ]
+> }
 > ```
 
 ## Module usage
@@ -41,9 +48,10 @@ returns the associated translation.
  - Install it: `npm i wikitranslate`
  - Require it: `let wikiTranslate = require('wikitranslate');`
  - Use it:
- ```
- wikiTranslate('Permittivité', 'fr', 'en')
- .then((translation) => {
-   console.log(translation); // Permittivity
- })
- ```
+
+  ```js
+  wikiTranslate('Permittivité', 'fr', 'en')
+  .then((translations) => {
+    console.log(translation); // { wikipedia: ['Permittivity'], wiktionary: ['Permittivity'] }
+  })
+  ```
