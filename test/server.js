@@ -7,9 +7,9 @@ chai.use(require('chai-http'));
 
 let expect = chai.expect;
 
-describe('API', () => {
+describe('API', function () {
   // Wikipedia API is somtimes a bit picky.
-  this.timeout = 5000;
+  this.timeout(5000);
 
   it('should translate words', () => {
     return chai.request(server)
