@@ -68,4 +68,15 @@ describe('API', function () {
       expect(res.headers['access-control-allow-methods']).to.equal('GET');
     });
   });
+
+  it('should return a lsit of supported languages', () => {
+    return chai.request(server)
+    .get('/langs')
+    .then((res) => {
+      expect(res).to.have.status(200);
+
+      expect(res.body).to.be.an('array');
+      expect(res.body).to.contain('fr', 'en');
+    });
+  });
 });

@@ -3,43 +3,46 @@
 let _ = require('lodash');
 let koa = require('koa');
 let koaCors = require('koa-cors');
-let qs = require('querystring');
+let koaRouter = require('koa-router');
 let translator = require('./lib/translate');
 
 let app = koa();
+let router = koaRouter();
 
 app.use(koaCors({ methods: 'GET' }));
 
-app.use(function* parseUrl(next) {
-  let parts = this.request.url.split('/');
-
-  if (parts.length < 4) this.throw(404, 'Invalid request. Usage : /fromLang/toLang/Word. Example : /en/fr/london.');
-
-  this.state.path = parts.splice(1);
-
-  // Where is destructuring when you need it ?
-  this.state.fromLang = this.state.path[0];
-  this.state.toLang = this.state.path[1];
-  this.state.search = qs.unescape(this.state.path[2]);
-
-  yield next;
-});
-
-app.use(function* log(next) {
+app.use(function* pageNotFound(next) {
   yield next;
 
-  let count = _(this.body).values().flatten().size();
+  if (this.status != 404) return;
 
-  console.log(`Found ${count} translations for "${this.state.search}" (${this.state.fromLang} -> ${this.state.toLang}).`);
+  this.status = 404;
+  this.body = 'Invalid request. Usage : /fromLang/toLang/Word. Example : /en/fr/london.';
 });
 
-app.use(function* translate() {
-  try {
-    this.body = yield translator(this.state.search, this.state.fromLang, this.state.toLang);
-  }
-  catch (err) {
-    this.throw(400, err);
-  }
+router.get('/langs', function* listLangs() {
+  this.body = require('./lib/translators/langs.json');
 });
+
+router.get('/:fromLang/:toLang/:input',
+  function* log(next) {
+    yield next;
+
+    let count = _(this.body).values().flatten().size();
+
+    console.log(`Found ${count} translations for "${this.params.input}" (${this.params.fromLang} -> ${this.params.toLang}).`);
+  },
+  function* translate() {
+    try {
+      this.body = yield translator(this.params.input, this.params.fromLang, this.params.toLang);
+    }
+    catch (err) {
+      this.throw(400, err);
+    }
+  }
+);
+
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 module.exports = app.listen(process.env.PORT || 3000);
