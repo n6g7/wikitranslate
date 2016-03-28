@@ -56,4 +56,16 @@ describe('API', function () {
       expect(err.response.text).to.equal('"po" is not a valid language.');
     });
   });
+
+  it('should provide CORS headers', () => {
+    return chai.request(server)
+    .get('/fr/en/Ferromagnétisme')
+    .then((res) => {
+      expect(res).to.have.status(200);
+
+      expect(res.headers).to.contain.keys('access-control-allow-origin', 'access-control-allow-methods');
+      expect(res.headers['access-control-allow-origin']).to.equal('*');
+      expect(res.headers['access-control-allow-methods']).to.equal('GET');
+    });
+  });
 });

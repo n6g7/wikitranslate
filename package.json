@@ -1,6 +1,6 @@
 {
   "name": "wikitranslate",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Wikipedia translation as a service",
   "author": "n6g7 <n6g7@gnab.fr>",
   "main": "lib/translate.js",
@@ -24,6 +24,7 @@
   "dependencies": {
     "debug": "^2.2.0",
     "koa": "^1.2.0",
+    "koa-cors": "0.0.16",
     "lodash": "^4.6.1",
     "q": "^1.4.1",
     "request": "^2.69.0"

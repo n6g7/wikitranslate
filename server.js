@@ -2,10 +2,13 @@
 
 let _ = require('lodash');
 let koa = require('koa');
+let koaCors = require('koa-cors');
 let qs = require('querystring');
 let translator = require('./lib/translate');
 
 let app = koa();
+
+app.use(koaCors({ methods: 'GET' }));
 
 app.use(function* parseUrl(next) {
   let parts = this.request.url.split('/');
