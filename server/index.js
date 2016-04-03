@@ -3,12 +3,15 @@
 let apiRouter = require('./api');
 let koa = require('koa');
 let koaCors = require('koa-cors');
+let koaStatic = require('koa-static');
 let koaRouter = require('koa-router');
 
 let app = koa();
 let router = koaRouter();
 
 app.use(koaCors({ methods: 'GET' }));
+
+app.use(koaStatic('app/dist'));
 
 app.use(function* pageNotFound(next) {
   yield next;
