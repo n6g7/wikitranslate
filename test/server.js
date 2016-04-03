@@ -13,7 +13,7 @@ describe('API', function () {
 
   it('should translate words', () => {
     return chai.request(server)
-    .get('/fr/en/Potentiel électrique')
+    .get('/api/fr/en/Potentiel électrique')
     .then((res) => {
       expect(res).to.have.status(200);
 
@@ -26,7 +26,7 @@ describe('API', function () {
 
   it('should refuse malformed urls', () => {
     return chai.request(server)
-    .get('/fr/Aimantation')
+    .get('/api/fr/Aimantation')
     .then(() => {
       throw new Error('Did not return an error :(');
     }, (err) => {
@@ -37,7 +37,7 @@ describe('API', function () {
 
   it('should return an error when the destination language does not exist', () => {
     return chai.request(server)
-    .get('/fr/jp/Ferromagnétisme')
+    .get('/api/fr/jp/Ferromagnétisme')
     .then(() => {
       throw new Error('Did not return an error :(');
     }, (err) => {
@@ -48,7 +48,7 @@ describe('API', function () {
 
   it('should return an error when the origin language does not exist', () => {
     return chai.request(server)
-    .get('/po/fr/Ferromagnétisme')
+    .get('/api/po/fr/Ferromagnétisme')
     .then(() => {
       throw new Error('Did not return an error :(');
     }, (err) => {
@@ -59,7 +59,7 @@ describe('API', function () {
 
   it('should provide CORS headers', () => {
     return chai.request(server)
-    .get('/fr/en/Ferromagnétisme')
+    .get('/api/fr/en/Ferromagnétisme')
     .then((res) => {
       expect(res).to.have.status(200);
 
@@ -71,7 +71,7 @@ describe('API', function () {
 
   it('should return a lsit of supported languages', () => {
     return chai.request(server)
-    .get('/langs')
+    .get('/api/langs')
     .then((res) => {
       expect(res).to.have.status(200);
 

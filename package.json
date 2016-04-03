@@ -6,7 +6,7 @@
   "main": "lib/translate.js",
   "scripts": {
     "pretest": "eslint ./",
-    "start": "node server.js",
+    "start": "node server/index.js",
     "test": "mocha"
   },
   "keywords": [

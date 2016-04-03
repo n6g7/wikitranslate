@@ -14,7 +14,7 @@ This package is two-fold:
 
 ## API usage
 
-The API is available on heroku : https://wiki-translate.herokuapp.com/
+The API is available on heroku : https://wiki-translate.herokuapp.com/api
 
 Usage is fairly simple:
 
