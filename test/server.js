@@ -80,3 +80,15 @@ describe('API', function () {
     });
   });
 });
+
+describe('Client', () => {
+  it('should be served', () => {
+    return chai.request(server)
+    .get('/')
+    .then((res) => {
+      expect(res).to.have.status(200);
+
+      expect(res.text).to.contain('<!doctype html>');
+    });
+  });
+});
