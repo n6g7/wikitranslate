@@ -5,7 +5,7 @@
 Ask experts from around the globe to find the exact translation for technical terms.
 Not only is Wikipedia a great source of knowledge, it's also a great translation tool !
 
-![Wiki 1](./doc/wiki.png)
+![Wiki 1](https://github.com/n6g7/wikitranslate/blob/master/doc/wiki.png)
 
 This package is two-fold:
 
