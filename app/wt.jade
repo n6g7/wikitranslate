@@ -1,0 +1,99 @@
+nav.navbar.navbar-wt.navbar-default.navbar-fixed-top
+  .container
+    a(href="#").navbar-brand WikiTranslate
+    ul.nav.navbar-nav.navbar-right
+      li: a(href="https://github.com/n6g7/wikitranslate" target="blank") Project on GitHub
+
+.jumbotron
+  .container
+    h1 Translate with Wikipedia
+
+    form
+      .row
+        .col-md-5
+          .form-group
+            label Input language
+            ui-select(ng-model="vm.fromLang")
+              ui-select-match
+                span {{ $select.selected }}
+              ui-select-choices(repeat="lang in (vm.languages | filter: $select.search) track by lang")
+                span {{ lang }}
+          .form-group
+            label Input
+            input.form-control(type="text" ng-model="vm.input")
+        .col-md-2
+        .col-md-5
+          .form-group
+            label Output language
+            ui-select(ng-model="vm.toLang")
+              ui-select-match
+                span {{ $select.selected }}
+              ui-select-choices(repeat="lang in (vm.languages | filter: $select.search) track by lang")
+                span {{ lang }}
+          .form-group
+            label Translation
+            input.form-control(disabled ng-model="vm.result")
+      .row
+        .col-md-12.form-group.text-center
+          button.btn.btn-primary.btn-lg(ng-click="vm.translate()" ng-disabled="vm.translating") Translate
+
+section.api-spec: .container
+  h2 API specs
+  
+  p The official endpoint for this API is #[a(href="https://wiki-translate.herokuapp.com/api") https:&#47;&#47;wiki-translate.herokuapp.com/api] but you are free to clone #[a(href="https://github.com/n6g7/wikitranslate" target="blank") the project] and setup your own endpoint.
+  
+  p The WikiTranslate API consists of two routes:
+  
+  h3 #[span.label.label-info GET] /#[code :fromLang]/#[code :toLang]/#[code :input]
+
+  p This route takes three arguments:
+  
+  ol
+    li the language code for the input language ;
+    li the language code for the output language ;
+    li the input itself.
+
+  p The list of availables languages (and their respective codes) is available #[a(href="https://meta.wikimedia.org/wiki/List_of_Wikipedias") here].
+
+  .row
+    div.col-md-6(hljs language="http").
+      GET /en/fr/Magnetic%20field HTTP/1.1
+      Accept: */*
+      Host: wiki-translate.herokuapp.com
+    
+    div.col-md-6(hljs language="http").
+      HTTP/1.1 200 OK
+      Access-Control-Allow-Methods: GET
+      Access-Control-Allow-Origin: *
+      Content-Length: 70
+      Content-Type: application/json; charset=utf-8
+
+
+      {
+        "wikipedia": [
+            "Champ magnétique"
+        ],
+        "wiktionary": [
+            "champ magnétique"
+        ]
+      }
+
+  h3 #[span.label.label-info GET] /langs
+
+  p Return the list of available language codes. This is equivalent to the meta wiki #[a(href="https://meta.wikimedia.org/wiki/List_of_Wikipedias" target="blank") List of Wikipedias] page.
+
+  .row
+    div.col-md-6(hljs language="http").
+      GET /langs HTTP/1.1
+      Accept: */*
+      Host: wiki-translate.herokuapp.com
+
+    div.col-md-6(hljs language="http").
+      HTTP/1.1 200 OK
+      Access-Control-Allow-Methods: GET
+      Access-Control-Allow-Origin: *
+      Content-Length: 1640
+      Content-Type: application/json; charset=utf-8
+
+
+      ["aa","ab","ace","ady","af","ak","als","am","an","ang",...]
