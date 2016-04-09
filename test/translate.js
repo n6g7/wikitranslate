@@ -31,4 +31,9 @@ describe('Translation', () => {
       expect(err).to.equal('"po" is not a valid language.');
     });
   });
+
+  it('should provide a list of supported languages', () => {
+    expect(translate).to.contain.key('langs');
+    expect(translate.langs).to.be.an('array');
+  });
 });
