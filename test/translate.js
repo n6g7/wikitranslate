@@ -1,9 +1,9 @@
-'use strict';
+const expect = require('chai').expect;
+const translate = require('../lib/translate');
 
-let expect = require('chai').expect;
-let translate = require('../lib/translate');
+describe('Translation', function() {
+  this.timeout(5000);
 
-describe('Translation', () => {
   it('should translate words', () => {
     return translate('Potentiel électrique', 'fr', 'en')
     .then((res) => {
