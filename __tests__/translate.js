@@ -1,16 +1,13 @@
-const expect = require('chai').expect
 const translate = require('../lib/translate')
 
 describe('Translation', function () {
-  this.timeout(5000)
-
   it('should translate words', () => {
     return translate('Potentiel électrique', 'fr', 'en')
     .then((res) => {
-      expect(res).to.be.an('object')
-      expect(res).to.contain.keys('wikipedia')
-      expect(res.wikipedia).to.be.an('array')
-      expect(res.wikipedia[0]).to.equal('Electric potential')
+      expect(res).toBeInstanceOf(Object)
+      expect(res).toHaveProperty('wikipedia')
+      expect(res.wikipedia).toBeInstanceOf(Array)
+      expect(res.wikipedia[0]).toBe('Electric potential')
     })
   })
 
@@ -19,7 +16,7 @@ describe('Translation', function () {
     .then(() => {
       throw new Error('Did not return an error :(')
     }, (err) => {
-      expect(err).to.contain('"jp" is not a valid language.')
+      expect(err.message).toBe('"jp" is not a valid language.')
     })
   })
 
@@ -28,12 +25,12 @@ describe('Translation', function () {
     .then(() => {
       throw new Error('Did not return an error :(')
     }, (err) => {
-      expect(err).to.equal('"po" is not a valid language.')
+      expect(err.message).toBe('"po" is not a valid language.')
     })
   })
 
   it('should provide a list of supported languages', () => {
-    expect(translate).to.contain.key('langs')
-    expect(translate.langs).to.be.an('array')
+    expect(translate).toHaveProperty('langs')
+    expect(translate.langs).toBeInstanceOf(Array)
   })
 })

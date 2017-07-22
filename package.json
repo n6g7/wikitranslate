@@ -6,7 +6,7 @@
   "main": "lib/translate.js",
   "scripts": {
     "pretest": "standard",
-    "test": "mocha"
+    "test": "jest"
   },
   "keywords": [
     "api",
@@ -27,14 +27,13 @@
     "request": "^2.69.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-http": "^2.0.1",
-    "mocha": "^2.4.5",
+    "jest": "^20.0.4",
     "standard": "^10.0.2"
   },
   "standard": {
     "globals": [
       "describe",
+      "expect",
       "it"
     ]
   }
