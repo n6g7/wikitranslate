@@ -11,7 +11,7 @@ This package provides a translation module.
 
 ## Usage
 
- - Install it: `npm i wikitranslate`
+ - Install it: `yarn add wikitranslate`
  - Require it: `let wikiTranslate = require('wikitranslate');`
  - Use it:
 
