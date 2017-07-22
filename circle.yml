@@ -1,7 +1,32 @@
-machine:
-  node:
-    version: 5.10.1
+version: 2
 
-dependencies:
-  pre:
-    - npm install -g npm
+jobs:
+  build:
+    working_directory: ~/wt
+
+    docker:
+      - image: node:6.10.2
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - wt-{{ .Branch }}-{{ checksum "package.json" }}
+            - wt-{{ .Branch }}
+            - wt-master-{{ checksum "package.json" }}
+            - wt-master
+
+      - run:
+          name: Install dependencies
+          command: yarn
+
+      - run:
+          name: Run tests
+          command: yarn test
+
+      - save_cache:
+          key: wt-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.yarn
+            - ~/wt/node_modules
