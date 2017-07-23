@@ -5,7 +5,7 @@ jobs:
     working_directory: ~/wt
 
     docker:
-      - image: node:6.10.2
+      - image: node:7
 
     steps:
       - checkout

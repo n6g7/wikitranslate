@@ -30,6 +30,7 @@
   },
   "standard": {
     "globals": [
+      "beforeEach",
       "describe",
       "expect",
       "it",
