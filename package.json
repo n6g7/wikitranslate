@@ -1,6 +1,6 @@
 {
   "name": "wikitranslate",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Wikipedia translation as a service",
   "author": "n6g7 <n6g7@gnab.fr>",
   "main": "lib/translate.js",
